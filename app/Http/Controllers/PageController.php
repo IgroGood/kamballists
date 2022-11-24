@@ -15,4 +15,11 @@ class PageController extends Controller {
             'title' => 'Login',
         ]);
     }
+
+    public function map(): Response {
+        return Inertia::render('Map', [
+            'title' => 'Карта точек с безналичной оплатой',
+            'script' => 'asdsd'
+        ]);
+    }
 }

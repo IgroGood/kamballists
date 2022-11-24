@@ -26,7 +26,8 @@
         "sass-loader": "^11.0.1",
         "vue": "^3.2.39",
         "vue-loader": "^17.0.0",
-        "vue-template-compiler": "^2.6.12"
+        "vue-template-compiler": "^2.6.12",
+        "vue-yandex-maps": "^1.0.4"
     },
     "dependencies": {
         "@inertiajs/inertia": "^0.11.0",

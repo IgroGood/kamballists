@@ -1,6 +1,5 @@
 <template>
     <div class="canvas-container"></div>
-    <div class='popup-3d'>С Новым Годом!</div>
     <bottom-menu/>
 </template>
 
@@ -18,11 +17,11 @@ export default {
     created() {
         console.log(route('js'));
         var scripts = [
-            "three.min.js",
-            "OBJLoader.js",
-            "OrbitControls.js",
-            "CSS3DRenderer.js",
-            "anime.min.js",
+            // "three.min.js",
+            // "OBJLoader.js",
+            // "OrbitControls.js",
+            // "CSS3DRenderer.js",
+            // "anime.min.js",
             "main.js",
         ];
         scripts.forEach(script => {

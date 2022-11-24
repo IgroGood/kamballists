@@ -22916,7 +22916,13 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     console.log(route('js'));
-    var scripts = ["three.min.js", "OBJLoader.js", "OrbitControls.js", "CSS3DRenderer.js", "anime.min.js", "main.js"];
+    var scripts = [
+    // "three.min.js",
+    // "OBJLoader.js",
+    // "OrbitControls.js",
+    // "CSS3DRenderer.js",
+    // "anime.min.js",
+    "main.js"];
     scripts.forEach(function (script) {
       var tag = document.createElement("script");
       tag.setAttribute("src", route('js') + "/3d/" + script);
@@ -23135,15 +23141,10 @@ var _hoisted_1 = /*#__PURE__*/_withScopeId(function () {
     "class": "canvas-container"
   }, null, -1 /* HOISTED */);
 });
-var _hoisted_2 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-    "class": "popup-3d"
-  }, "С Новым Годом!", -1 /* HOISTED */);
-});
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_bottom_menu = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("bottom-menu");
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [_hoisted_1, _hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_bottom_menu)], 64 /* STABLE_FRAGMENT */);
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [_hoisted_1, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_bottom_menu)], 64 /* STABLE_FRAGMENT */);
 }
 
 /***/ }),

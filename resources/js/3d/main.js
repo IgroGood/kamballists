@@ -39,7 +39,6 @@ function init() {
     loadModel();
 
     initEventListeners();
-    initPopups();
 
     document.querySelector('.canvas-container').appendChild(RENDERER.domElement);
     document.querySelector('.canvas-container').appendChild(CSSRENDERER.domElement);
@@ -207,25 +206,6 @@ function onMouseMove(event) {
     MOUSE.y = -(event.clientY / window.innerHeight) * 2 + 1;
 }
 
-
-function initPopups() {
-    const popupSource = document.querySelector('.popup-3d');
-
-    popupSource[_IS_VISIBLE] = true;
-
-    const popup = new THREE.CSS3DObject(popupSource);
-
-    popup.position.x = 0;
-    popup.position.y = -10;
-    popup.position.z = 30;
-    popup.scale.x = 0.05;
-    popup.scale.y = 0.05;
-    popup.scale.z = 0.05;
-
-    SCENE.add(popup);
-}
-
-
 function animate() {
     requestAnimationFrame(animate);
     CONTROLS.update();
@@ -238,7 +218,6 @@ function render() {
 
     RAYCASTER.setFromCamera(MOUSE, CAMERA);
     paintHoveredBalls();
-    updatePopups();
 
     RENDERER.render(SCENE, CAMERA);
     CSSRENDERER.render(SCENE, CAMERA);
@@ -277,27 +256,5 @@ function paintHoveredBalls() {
                     break;
             }
         }
-    }
-}
-
-
-function updatePopups() {
-    const popupSource = document.querySelector('.popup-3d');
-    const angle = CONTROLS.getAzimuthalAngle();
-
-    if (Math.abs(angle) > .9 && popupSource[_IS_VISIBLE]) {
-        anime({
-            targets: popupSource,
-            opacity: 0,
-            easing: 'easeInOutQuad'
-        });
-        popupSource[_IS_VISIBLE] = false;
-    } else if (Math.abs(angle) < .9 && !popupSource[_IS_VISIBLE]) {
-        anime({
-            targets: popupSource,
-            opacity: 1,
-            easing: 'easeInOutQuad'
-        });
-        popupSource[_IS_VISIBLE] = true;
     }
 }

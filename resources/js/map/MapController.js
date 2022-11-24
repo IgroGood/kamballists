@@ -20,4 +20,17 @@ export default class MapController {
                 iconColor: colorMap.get(organizationPoint.type)
             }))
     }
-}
+
+    setUserPoint(latitide, longitude) {
+        this._ymap.geoObjects
+            .add(new ymaps.Placemark([latitide, longitude], {
+                balloonContentHeader: "Вы здесь",
+                balloonContentBody: "На страже безопасности безналичных платежей!"
+            }, {
+                preset: 'islands#dotIcon',
+                // iconLayout : 'iconShadowLayout',
+                iconColor: "red"
+            }))
+    }
+
+} 

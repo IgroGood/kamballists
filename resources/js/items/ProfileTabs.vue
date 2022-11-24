@@ -1,7 +1,7 @@
 <template>
     <div class="tabs__wrapper">
         <ul class="tabs">
-            <li data-type="placed" @click="emitType($event)">Поданые</li>
+            <li data-type="placed" @click="emitType($event)" class="active">Поданые</li>
             <li data-type="process" @click="emitType($event)">В процессе</li>
             <li data-type="succeed" @click="emitType($event)">Обработанные</li>
         </ul>

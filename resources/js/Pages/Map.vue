@@ -19,9 +19,9 @@ import { ymapsApiSettings } from '../map/ymapsSettings';
 import { YandexMap } from '../map/YandexMap'
 import OrganizationPoint from '../map/OrganizationPoint'
 import MapController from '../map/MapController'
+import userPos from "../map/geolocation"
 import { loadYmap } from 'vue-yandex-maps'
 import BottomMenu from "../items/ui/BottomMenu";
-
 export default {
     components: {
         BottomMenu
@@ -35,12 +35,16 @@ export default {
         const mapController = new MapController(ymap)
 
         const points = [
-            new OrganizationPoint(55.687086, 37.529789, "red", "Мошенники", "Не берут через терминаds"),
-            new OrganizationPoint(55.8, 37.65, "yellow", "Имеются вопросы", "Терминал есть, но предпочитают перевод"),
-            new OrganizationPoint(55.697086, 37.529789, "green", "Безопасные платежи", "Всё хорошо, отличный магазин!")
+            new OrganizationPoint(62.034741, 129.729014, "red", "Мошенники", "Не берут через терминаds"),
+            new OrganizationPoint(62.010546, 129.710280, "yellow", "Имеются вопросы", "Терминал есть, но предпочитают перевод"),
+            new OrganizationPoint(62.040608, 129.750592, "green", "Безопасные платежи", "Всё хорошо, отличный магазин!")
         ]
 
         points.map(point => mapController.displayOrganizationPoint(point))
+    
+        if(userPos.latitude && userPos.longitude) {
+            mapController.setUserPoint(userPos.latitude, userPos.longitude)
+        }
     },
 }
 </script>

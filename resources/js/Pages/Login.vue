@@ -2,7 +2,7 @@
     {{route('login')}}
     <section style="height: 100vh; display: flex; align-items: center; max-width: 500px; padding: 0 16px; margin: 0 auto;">
         <div class="container">
-            <h1 class="kb-title">Добро пожаловать<strong style="display: block"> в безналиный город!</strong></h1>
+            <h1 class="kb-title">Добро пожаловать<strong style="display: block"> в безналичный город!</strong></h1>
             <div class="form">
                 <input class="kb-input" v-model="phone" v-mask="['+7(###)###-##-##']" type="text" placeholder="+7(XXX)-XXX-XX-XX">
                 <input class="kb-input" v-model="password" type="password" placeholder="Пароль">

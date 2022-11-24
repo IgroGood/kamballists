@@ -8,6 +8,6 @@ export const ymapsApiSettings = {
 
 export const ymapsSettings = {
     elementId: 'map',
-    coordinates: [55.753723, 37.6197953],
-    zoom: 11
+    coordinates: [62.028810, 129.739479],
+    zoom: 12
 }

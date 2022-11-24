@@ -40,10 +40,7 @@ export default {
             new OrganizationPoint(55.697086, 37.529789, "green", "Безопасные платежи", "Всё хорошо, отличный магазин!")
         ]
 
-        points.map(point => {
-            console.log(point)
-            mapController.displayOrganizationPoint(point)
-        })
+        points.map(point => mapController.displayOrganizationPoint(point))
     },
 }
 </script>

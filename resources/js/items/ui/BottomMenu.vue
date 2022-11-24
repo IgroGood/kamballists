@@ -1,17 +1,31 @@
 <template>
     <div class="bottom-menu">
         <ul class="bottom-menu__list">
-            <li><a class="icon icon-map" :href="route('app.home')">Карта</a></li>
-            <li><a class="icon icon-avatar" :href="route('app.avatar')">Аватар</a></li>
-            <li><a class="icon icon-partners" :href="route('app.partners')">Партнеры</a></li>
-            <li><a class="icon icon-profile" :href="route('app.profile')">Профиль</a></li>
+            <li><a class="icon icon-map" :href="route('app.home')"><GeoIcon />Карта</a></li>
+            <li><a class="icon icon-avatar" :href="route('app.avatar')"><AvatarIcon />Аватар</a></li>
+            <li><a class="icon icon-partners" :href="route('app.partners')"><PartnersIcon />Партнеры</a></li>
+            <li><a class="icon icon-profile" :href="route('app.profile')"><ProfileIcon />Профиль</a></li>
         </ul>
     </div>
+
+    
 </template>
 
 <script>
+import GeoIcon from "./icons/Geo.vue"
+import AvatarIcon from "./icons/Avatar.vue"
+import PartnersIcon from "./icons/Partners.vue"
+import ProfileIcon from "./icons/Profile.vue"
+
 export default {
-    name: "BottomMenu"
+    name: "BottomMenu",
+
+    components : {
+        GeoIcon,
+        AvatarIcon,
+        PartnersIcon,
+        ProfileIcon
+    }
 }
 </script>
 
@@ -31,15 +45,18 @@ export default {
         margin: 0
         li
             margin: 0 auto
+
+            a
+                svg
+                    fill: #D4D6DD
+
+                &.active
+                    fill: #006FFD                   
 .icon
     display: flex
     flex-direction: column
     align-items: center
-    &::before
-        content: ''
-        background-color: #0073ff
-        width: 32px
-        height: 32px
+    
     &-map
     &-avatar
     &-partners

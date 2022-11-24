@@ -3,9 +3,9 @@
         <div class="container">
             <h1 class="kb-title">Добро пожаловать<strong style="display: block"> в безналиный город!</strong></h1>
             <div class="form">
-                <input class="kb-input" v-model="phone" v-mask="['+7(###)###-##-##']" type="text" autoDetectCountry showFlag placeholder="+7(XXX)-XXX-XX-XX">
+                <input class="kb-input" v-model="phone" v-mask="['+7(###)###-##-##']" type="text" placeholder="+7(XXX)-XXX-XX-XX">
                 <input class="kb-input" v-model="password" type="password" placeholder="Пароль">
-                <span>{{ massage }}</span>
+                <span style="color: #1a202c; margin-bottom: 10px;">{{ massage }}</span>
                 <button class="kb-button" @click="login">Войти</button>
                 <div class="form-line"></div>
                 <span class="kb-span" style="text-align: center">Или войти через</span>
@@ -30,7 +30,7 @@ export default {
 
     data() {
         return {
-            phone: '',
+            phone: '+7(999)000-13-13',
             password: '',
             massage: '',
         }
@@ -46,7 +46,7 @@ export default {
                 }).then(r => {
                     localStorage.setItem('x_xsrf_token', r.config.headers['X-XSRF-TOKEN']);
                     location.href = this.route('app.home')
-                }).catch(reason => this.message = reason.response.data.message);
+                }).catch(reason => this.massage = reason.response.data.message);
             });
         }
     }

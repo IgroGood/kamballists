@@ -36,9 +36,11 @@
         "chart.js": "^3.8.0",
         "chartjs-adapter-moment": "^1.0.0",
         "flatpickr": "^4.6.13",
+        "leaflet": "^1.9.3",
         "moment": "^2.29.4",
         "vue-flatpickr-component": "^9.0.6",
         "vue-router": "^4.1.5",
+        "vue-the-mask": "^0.11.1",
         "ziggy-js": "^1.5.0"
     }
 }

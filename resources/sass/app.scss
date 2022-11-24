@@ -6,9 +6,9 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap-grid';
-
+@import 'ui';
 
 * {
-    font-family: Arial, sans-serif;
+    font-family: 'Inter';
     box-sizing: border-box;
 }

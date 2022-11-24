@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,7 +18,7 @@ class AuthController extends Controller {
      */
     public function login(Request $request) {
         $credentials = $request->validate([
-            'email' => ['required'],
+            'phone' => ['required'],
             'password' => ['required'],
         ]);
 
@@ -27,25 +28,5 @@ class AuthController extends Controller {
         }
 
         return $this->error('Неверный логин или пароль.', 403);
-    }
-
-    public function logout() {
-//        Session::flush();
-//        Auth::logout();
-//        return redirect()->route('index');
-
-        dd(Session::forget('key'));
-        Session::forget('key');
-        if(!Session::has('key')) {
-            return "signout";
-        }
-        session()->remove(session()->getId());
-        dd(2);
-        return redirect()->route('index');
-//        auth()->user()->tokens()->delete();
-//
-//        return [
-//            'message' => auth()->user()->tokens()
-//        ];
     }
 }

@@ -13,6 +13,9 @@ Route::middleware(['guest'])->group(function (){
 
 Route::middleware(['auth:sanctum', 'auth'])->prefix('app')->group(function (){
     Route::get('/map', [AppController::class, 'map'])->name('app.home');
+    Route::get('/avatar', [AppController::class, 'avatar'])->name('app.avatar');
+    Route::get('/partners', [AppController::class, 'partners'])->name('app.partners');
+    Route::get('/profile', [AppController::class, 'profile'])->name('app.profile');
     Route::get('/logout', function() {
         session()->flush();
         return redirect()->route('index');

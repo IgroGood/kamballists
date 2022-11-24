@@ -10,6 +10,8 @@
     <div>
         Точки приёма платежей на карте
     </div>
+
+    <bottom-menu/>
 </template>
 
 <script>
@@ -18,9 +20,13 @@ import { YandexMap } from '../map/YandexMap'
 import OrganizationPoint from '../map/OrganizationPoint'
 import MapController from '../map/MapController'
 import { loadYmap } from 'vue-yandex-maps'
-
+import BottomMenu from "../items/ui/BottomMenu";
 
 export default {
+    components: {
+        BottomMenu
+    },
+
     async mounted() {
         await loadYmap(ymapsApiSettings);
 

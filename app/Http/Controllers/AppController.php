@@ -12,4 +12,22 @@ class AppController extends \Inertia\Controller {
             'script' => 'asdsd'
         ]);
     }
+
+    public function avatar(): Response {
+        return Inertia::render('Avatar', [
+            'title' => 'Аватар',
+        ]);
+    }
+
+    public function partners(): Response {
+        return Inertia::render('Partners', [
+            'title' => 'Друзья',
+        ]);
+    }
+
+    public function profile(): Response {
+        return Inertia::render('Profile', [
+            'title' => 'Профиль',
+        ]);
+    }
 }

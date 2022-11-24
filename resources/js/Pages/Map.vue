@@ -1,17 +1,13 @@
 <template>
-    <!-- <YandexMap :settings="ymapsApiSettings" :coordinates="ymapsSettings.coordinates" class="yandex-maps">
+    <div class="main">
+        <!-- <YandexMap :settings="ymapsApiSettings" :coordinates="ymapsSettings.coordinates" class="yandex-maps">
         <YandexMarker :coordinates="[55.753723, 37.6197953]" :marker-id="200"
             :options="{ hasBalloon: true, openEmptyBalloon: true, fill: true, fillColor: '00ff00ff', openBalloonOnClick: true }"
             :properties="{ balloonContentHeader: 'Мошенники!', balloonContentBody: 'Нужно сообщить в ФНС', }" />
-    </YandexMap> -->
-    <div id="map" class="yandex-maps">
-
+        </YandexMap> -->
+        <div id="map" class="yandex-maps"></div>
+        <bottom-menu/>
     </div>
-    <div>
-        Точки приёма платежей на карте
-    </div>
-
-    <bottom-menu/>
 </template>
 
 <script>
@@ -49,10 +45,12 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+.main
+    width: 100vw
+    height: 100vh
+    display: flex
 .asd
     background-color: red
 .yandex-maps
     width: 100%
-    height: 500px
-
 </style>

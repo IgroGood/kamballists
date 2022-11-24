@@ -44,4 +44,3 @@ package-lock.json
 public/js
 public/css
 webpack.mix.js
-#webpack.mix.js

@@ -15,16 +15,24 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            $table->string('phone')->unique();
+            $table->timestamp('phone_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
         });
 
+        // Insert some stuff
         DB::table('users')->insert(
             array(
-                'email' => 'test@kamgov.ru',
+                'phone' => '+7(999)000-13-13',
+                'password' => '$2y$10$.M/spn69jS7YfercDzwmdezTaMdbY0w6j1Map6UIxkmqxsNW0WxX.'
+            )
+        );
+
+        DB::table('users')->insert(
+            array(
+                'phone' => '+7(999)000-13-14',
                 'password' => '$2y$10$.M/spn69jS7YfercDzwmdezTaMdbY0w6j1Map6UIxkmqxsNW0WxX.'
             )
         );

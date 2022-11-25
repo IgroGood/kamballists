@@ -12,8 +12,8 @@ const mix = require('laravel-mix');
  */
 
 mix
-    .js('resources/js/app.js', 'public/js')
+    .js('resources/js/app.js', 'public/js').version()
     .vue()
-    .browserSync('kamballists.kamgov.ru')
+    .browserSync('kamballists/')
     .sass('resources/sass/app.scss', 'public/css')
     .css('resources/css/app.css', 'public/css');

@@ -12,12 +12,16 @@
         <h1>Организации</h1>
         <table class="table">
             <thead>
-                <tr><td>Наименование</td><td>Адрес</td></tr>
+                <tr><td>Наименование</td><td>Адрес</td><td>Описание</td><td>Координаты</td></tr>
             </thead>
 
             <tbody>
                 <tr v-for="organisation in $page.props.organisations">
-                    <td><a style="color: #006FFD" :href="route('organisation', organisation.id)">{{ organisation.organisation_name }}</a></td><td>{{ organisation.address }}</td></tr>
+                    <td><a style="color: #006FFD" :href="route('organisation', organisation.id)">{{ organisation.organisation_name }}</a></td>
+                    <td>{{ organisation.address }}</td>
+                    <td>{{ organisation.description }}</td>
+                    <td>{{ organisation.latitude + ' ' + organisation.longitude }}</td>
+                </tr>
             </tbody>
         </table>
     </div>

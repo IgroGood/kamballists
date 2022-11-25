@@ -23799,7 +23799,7 @@ var _hoisted_5 = {
   "class": "table"
 };
 var _hoisted_6 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, "Наименование"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, "Адрес")])], -1 /* HOISTED */);
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, "Наименование"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, "Адрес"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, "Описание"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, "Координаты")])], -1 /* HOISTED */);
 });
 var _hoisted_7 = ["href"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -23835,7 +23835,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         "color": "#006FFD"
       },
       href: _ctx.route('organisation', organisation.id)
-    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(organisation.organisation_name), 9 /* TEXT, PROPS */, _hoisted_7)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(organisation.address), 1 /* TEXT */)]);
+    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(organisation.organisation_name), 9 /* TEXT, PROPS */, _hoisted_7)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(organisation.address), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(organisation.description), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(organisation.latitude + ' ' + organisation.longitude), 1 /* TEXT */)]);
   }), 256 /* UNKEYED_FRAGMENT */))])])]);
 }
 
@@ -30150,7 +30150,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.table {\r\n    width: 100%;\r\n    margin-bottom: 20px;\r\n    border: 1px solid #dddddd;\r\n    border-collapse: collapse;\n}\n.table th {\r\n    font-weight: bold;\r\n    padding: 5px;\r\n    background: #efefef;\r\n    border: 1px solid #dddddd;\n}\n.table td {\r\n    border: 1px solid #dddddd;\r\n    padding: 5px;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.table {\n    width: 100%;\n    margin-bottom: 20px;\n    border: 1px solid #dddddd;\n    border-collapse: collapse;\n}\n.table th {\n    font-weight: bold;\n    padding: 5px;\n    background: #efefef;\n    border: 1px solid #dddddd;\n}\n.table td {\n    border: 1px solid #dddddd;\n    padding: 5px;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

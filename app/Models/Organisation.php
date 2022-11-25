@@ -20,5 +20,8 @@ class Organisation extends Authenticatable
     protected $fillable = [
         'organisation_name',
         'address',
+        'description',
+        'latitude',
+        'longitude',
     ];
 }

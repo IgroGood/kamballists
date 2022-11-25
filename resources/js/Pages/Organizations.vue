@@ -4,6 +4,7 @@
         <div class="form">
             <input class="kb-input" type="text" v-model="organisation_name" placeholder="Наименование">
             <input class="kb-input" type="text" v-model="address" placeholder="Адрес">
+            <input class="kb-input" type="text" v-model="description" placeholder="Дополнительная информация">
             <button class="kb-button" @click="createOrganisation">Создать</button>
             <span>{{ message }}</span>
         </div>
@@ -34,6 +35,7 @@ export default {
         return {
             organisation_name: '',
             address: '',
+            description: '',
             message: '',
         }
     },
@@ -47,6 +49,9 @@ export default {
             axios.post(route('organisation.create'), {
                 'organisation_name': this.organisation_name,
                 'address': this.address,
+                'description': this.description,
+                'latitude': 42.02,
+                'longitude': 23.92,
             }).then(r => {
                 this.massage = r.response.data.message
             }).catch(reason => this.massage = reason.response.data.message);

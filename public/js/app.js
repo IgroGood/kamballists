@@ -23058,8 +23058,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     Feedback: _items_Feedback__WEBPACK_IMPORTED_MODULE_8__["default"]
   },
   data: function data() {
-    this.place_of_incident = null;
     return {
+      latitude: 0,
+      longitude: 0,
       showCreateNewUserModal: false
     };
   },
@@ -23067,7 +23068,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   mounted: function mounted() {
     var _this = this;
     return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-      var yandexMap, ymap, mapController, points, thisObj;
+      var yandexMap, ymap, mapController, points;
       return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
@@ -23084,19 +23085,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               });
               if (_map_geolocation__WEBPACK_IMPORTED_MODULE_4__["default"].latitude && _map_geolocation__WEBPACK_IMPORTED_MODULE_4__["default"].longitude) {
                 mapController.setUserPoint(_map_geolocation__WEBPACK_IMPORTED_MODULE_4__["default"].latitude, _map_geolocation__WEBPACK_IMPORTED_MODULE_4__["default"].longitude);
+                _this.latitude = _map_geolocation__WEBPACK_IMPORTED_MODULE_4__["default"].latitude;
+                _this.longitude = _map_geolocation__WEBPACK_IMPORTED_MODULE_4__["default"].longitude;
               }
-
-              //Я предупреждал
-              thisObj = _this;
-              ymap.events.add('click', function (e) {
-                if (thisObj.place_of_incident !== null) ymap.geoObjects.remove(thisObj.place_of_incident);
-                var coords = e.get('coords');
-                thisObj.place_of_incident = new ymaps.Placemark(coords, null, {
-                  preset: 'islands#blueDotIcon'
-                });
-                ymap.geoObjects.add(thisObj.place_of_incident);
+              ymap.events.add('click', function () {
+                _this.latitude = mapController.currentBaloonCoords.latitude;
+                _this.longitude = mapController.currentBaloonCoords.longitude;
               });
-            case 10:
+            case 9:
             case "end":
               return _context.stop();
           }
@@ -23143,6 +23139,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       organisation_name: '',
       address: '',
+      description: '',
       message: ''
     };
   },
@@ -23154,7 +23151,10 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
       axios.post(route('organisation.create'), {
         'organisation_name': this.organisation_name,
-        'address': this.address
+        'address': this.address,
+        'description': this.description,
+        'latitude': 42.02,
+        'longitude': 23.92
       }).then(function (r) {
         _this.massage = r.response.data.message;
       })["catch"](function (reason) {
@@ -23244,6 +23244,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Feedback",
+  props: {
+    latitude: Number,
+    longitude: Number
+  },
   components: {
     ItemCheckbox: _ui_ItemCheckbox__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
@@ -23252,9 +23256,7 @@ __webpack_require__.r(__webpack_exports__);
       organisation: '',
       // 2gis справочник
       description: '',
-      c1: true,
-      c2: true,
-      c3: true
+      type: 1
     };
   },
   created: function created() {
@@ -23267,7 +23269,7 @@ __webpack_require__.r(__webpack_exports__);
         'organisation': '',
         'description': '',
         'address': '[54.2131,55.1234]',
-        'type': 1
+        'type': this.type
       }).then(function (r) {
         console.log(r);
       })["catch"](function (reason) {
@@ -23280,10 +23282,20 @@ __webpack_require__.r(__webpack_exports__);
         'sort_point': '37.630866,55.752256',
         'key': '4699c8cf-0acf-4c5b-ac23-1af7f738c7ef'
       }).then(function (r) {
-        console.log(r);
+        // console.log(r)
       })["catch"](function (reason) {
         return console.log(reason.response);
       });
+    },
+    selectProblemType: function selectProblemType(e) {
+      var currentProblemButton = e.target;
+      var wrapper = currentProblemButton.closest(".type-select__wrapper");
+      var problemButtons = wrapper.querySelectorAll(".type-select");
+      problemButtons.forEach(function (element) {
+        return element.classList.remove("active");
+      });
+      currentProblemButton.classList.add("active");
+      this.type = parseInt(currentProblemButton.getAttribute("data-value"));
     }
   }
 });
@@ -23717,7 +23729,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_feedback)];
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_feedback, {
+        latitude: $data.latitude,
+        longitude: $data.longitude
+      }, null, 8 /* PROPS */, ["latitude", "longitude"])];
     }),
     _: 1 /* STABLE */
   }, 8 /* PROPS */, ["modelValue"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
@@ -23802,9 +23817,16 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return $data.address = $event;
     }),
     placeholder: "Адрес"
-  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.address]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.address]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    "class": "kb-input",
+    type: "text",
+    "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
+      return $data.description = $event;
+    }),
+    placeholder: "Дополнительная информация"
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.description]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "kb-button",
-    onClick: _cache[2] || (_cache[2] = function () {
+    onClick: _cache[3] || (_cache[3] = function () {
       return $options.createOrganisation && $options.createOrganisation.apply($options, arguments);
     })
   }, "Создать"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.message), 1 /* TEXT */)]), _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.$page.props.organisations, function (organisation) {
@@ -23899,25 +23921,30 @@ var _hoisted_3 = /*#__PURE__*/_withScopeId(function () {
 var _hoisted_4 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", null, "Выберете проблему", -1 /* HOISTED */);
 });
-var _hoisted_5 = {
-  style: {
-    "display": "flex",
-    "flex-direction": "column"
-  }
-};
-var _hoisted_6 = {
-  "for": "c1"
-};
-var _hoisted_7 = {
-  "for": "c2"
-};
-var _hoisted_8 = {
-  "for": "c3"
-};
-var _hoisted_9 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_5 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "type-select",
+    "data-value": "1"
+  }, "Нет терминала", -1 /* HOISTED */);
+});
+var _hoisted_6 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "type-select",
+    "data-value": "2"
+  }, "Терминал есть, но попросили оплатить переводом или наличными", -1 /* HOISTED */);
+});
+var _hoisted_7 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "type-select",
+    "data-value": "3"
+  }, "Терминал не работает", -1 /* HOISTED */);
+});
+var _hoisted_8 = [_hoisted_5, _hoisted_6, _hoisted_7];
+var _hoisted_9 = ["value"];
+var _hoisted_10 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", null, "Дополните заявку", -1 /* HOISTED */);
 });
-var _hoisted_10 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_11 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "kb-button"
   }, "Отправить", -1 /* HOISTED */);
@@ -23934,31 +23961,23 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     },
     type: "text",
     placeholder: "Уточните адрес"
-  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.organisation]]), _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("          колхоз"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
-      return $data.c1 = $event;
-    }),
-    type: "checkbox",
-    id: "c1"
-  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelCheckbox, $data.c1]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Нет терминала")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.organisation]]), _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" не колхоз"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "type-select__wrapper",
+    onClick: _cache[1] || (_cache[1] = function ($event) {
+      $options.selectProblemType($event);
+    })
+  }, _hoisted_8), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    type: "hidden",
+    name: "type",
+    id: "type",
+    value: $data.type
+  }, null, 8 /* PROPS */, _hoisted_9), _hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
     "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
-      return $data.c2 = $event;
-    }),
-    type: "checkbox",
-    id: "c2"
-  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelCheckbox, $data.c2]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Терминал есть, но попросили оплатить переводом или наличными")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
-      return $data.c3 = $event;
-    }),
-    type: "checkbox",
-    id: "c3"
-  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelCheckbox, $data.c3]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Терминал не работает")])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("          кароч лень"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("          <item-checkbox></item-checkbox>"), _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
-    "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
       return $data.description = $event;
     }),
     "class": "form-textarea",
     placeholder: "Например, если магазин находится в ТЦ, укажите его этаж и расположение"
-  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.description]]), _hoisted_10])]);
+  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.description), 513 /* TEXT, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.description]]), _hoisted_11])]);
 }
 
 /***/ }),
@@ -24596,6 +24615,8 @@ var MapController = /*#__PURE__*/function () {
   function MapController(ymap) {
     _classCallCheck(this, MapController);
     this._ymap = ymap;
+    this._currentBaloon = null;
+    this.addMapEventListeners();
   }
   _createClass(MapController, [{
     key: "displayOrganizationPoint",
@@ -24612,14 +24633,40 @@ var MapController = /*#__PURE__*/function () {
   }, {
     key: "setUserPoint",
     value: function setUserPoint(latitide, longitude) {
-      this._ymap.geoObjects.add(new ymaps.Placemark([latitide, longitude], {
+      this._currentBaloon = new ymaps.Placemark([latitide, longitude], {
         balloonContentHeader: "Вы здесь",
         balloonContentBody: "На страже безопасности безналичных платежей!"
       }, {
         preset: 'islands#dotIcon',
         // iconLayout : 'iconShadowLayout',
         iconColor: "red"
-      }));
+      });
+      this._ymap.geoObjects.add(this._currentBaloon);
+      this.currentBaloonCoords = {
+        latitude: latitide,
+        longitude: longitude
+      };
+    }
+  }, {
+    key: "setPointByClick",
+    value: function setPointByClick(e) {
+      if (this._currentBaloon) {
+        this._ymap.geoObjects.remove(this._currentBaloon);
+      }
+      var coords = e.get('coords');
+      this._currentBaloon = new ymaps.Placemark(coords, null, {
+        preset: 'islands#blueDotIcon'
+      });
+      this._ymap.geoObjects.add(this._currentBaloon);
+      this.currentBaloonCoords = {
+        latitude: coords[0],
+        longitude: coords[1]
+      };
+    }
+  }, {
+    key: "addMapEventListeners",
+    value: function addMapEventListeners() {
+      this._ymap.events.add('click', this.setPointByClick.bind(this));
     }
   }]);
   return MapController;
@@ -30223,7 +30270,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".hhekko[data-v-44e6e5dc] {\n  width: 100%;\n}\n.form-textarea[data-v-44e6e5dc] {\n  display: block;\n  width: 100%;\n  max-width: 100%;\n  border: 1px solid #718096;\n  padding: 16px;\n  margin-bottom: 20px;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".hhekko[data-v-44e6e5dc] {\n  width: 100%;\n}\n.form-textarea[data-v-44e6e5dc] {\n  display: block;\n  width: 100%;\n  max-width: 100%;\n  border: 1px solid #718096;\n  padding: 16px;\n  margin-bottom: 20px;\n}\n.type-select[data-v-44e6e5dc] {\n  background-color: #EAF2FF;\n  color: #006FFD;\n  padding: 0.2rem 0.5rem;\n  border-radius: 13px;\n  max-width: 550px;\n}\n.type-select.active[data-v-44e6e5dc] {\n  background-color: #006FFD;\n  color: #fff;\n}\n.type-select__wrapper[data-v-44e6e5dc] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.5rem;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

@@ -23,5 +23,13 @@ class Organisation extends Authenticatable
         'description',
         'latitude',
         'longitude',
+        'status',
     ];
+
+    public function issue(){
+        return $this->belongsToMany('App\Models\Issue',
+            'issues',
+            'status',
+            'id');
+    }
 }

@@ -35,6 +35,12 @@ class CreateIssuesTable extends Migration
                 'issue_name' => 'Терминал не работает',
             )
         );
+
+        DB::table('issues')->insert(
+            array(
+                'issue_name' => 'Терминал работает',
+            )
+        );
     }
 
     /**

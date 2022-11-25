@@ -3,6 +3,7 @@
 use App\Http\Controllers\AppController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\OrganisationController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -28,4 +29,11 @@ Route::middleware(['auth:sanctum', 'auth'])->prefix('app')->group(function (){
     Route::get('/profile', [AppController::class, 'profile'])->name('app.profile');
 
 
+    Route::prefix('organisation')->group(function() {
+        Route::get('/all', [OrganisationController::class, 'organisations'])->name('organisation.all');
+        Route::get('/{id}', [OrganisationController::class, 'organisation'])->name('organisation');
+
+        Route::post('/create', [OrganisationController::class, 'create'])
+            ->name('organisation.create');
+    });
 });

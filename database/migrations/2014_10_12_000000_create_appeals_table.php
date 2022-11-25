@@ -17,7 +17,6 @@ class CreateAppealsTable extends Migration
             $table->id();
             $table->bigInteger('user_id');
             $table->string('address');
-            $table->string('organisation')->nullable();
             $table->string('description');
             $table->string('issues');
             $table->rememberToken();

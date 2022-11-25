@@ -30150,7 +30150,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.table {\n    width: 100%;\n    margin-bottom: 20px;\n    border: 1px solid #dddddd;\n    border-collapse: collapse;\n}\n.table th {\n    font-weight: bold;\n    padding: 5px;\n    background: #efefef;\n    border: 1px solid #dddddd;\n}\n.table td {\n    border: 1px solid #dddddd;\n    padding: 5px;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.table {\r\n    width: 100%;\r\n    margin-bottom: 20px;\r\n    border: 1px solid #dddddd;\r\n    border-collapse: collapse;\n}\n.table th {\r\n    font-weight: bold;\r\n    padding: 5px;\r\n    background: #efefef;\r\n    border: 1px solid #dddddd;\n}\n.table td {\r\n    border: 1px solid #dddddd;\r\n    padding: 5px;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

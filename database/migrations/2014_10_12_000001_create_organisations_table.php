@@ -17,7 +17,7 @@ class CreateOrganisationsTable extends Migration
             $table->id();
             $table->string('organisation_name');
             $table->string('address');
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->float('latitude');
             $table->float('longitude');
             $table->timestamps();

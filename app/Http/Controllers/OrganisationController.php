@@ -31,11 +31,17 @@ class OrganisationController extends \Inertia\Controller {
         $credentials = $request->validate([
             'organisation_name' => ['required'],
             'address' => ['required'],
+            'description' => ['required'],
+            'latitude' => ['required'],
+            'longitude' => ['required'],
         ]);
 
         $organisation = new Organisation([
             'organisation_name' => $credentials['organisation_name'],
             'address' => $credentials['address'],
+            'description' => $credentials['description'],
+            'latitude' => $credentials['latitude'],
+            'longitude' => $credentials['longitude'],
         ]);
 
         $organisation->save();

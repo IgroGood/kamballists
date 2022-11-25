@@ -8,11 +8,12 @@
         <div id="map" class="yandex-maps"></div>
 
         <pop-up v-model="showCreateNewUserModal">
-            <feedback></feedback>
+            <feedback :latitude="latitude" :longitude="longitude"></feedback>
         </pop-up>
 
         <button class="kb-button button" @click="showCreateNewUserModal = true">
             Сообщить
+
         </button>
 
         <bottom-menu/>
@@ -37,8 +38,9 @@ export default {
     },
 
     data(){
-        this.place_of_incident = null
         return {
+            latitude : 0,
+            longitude : 0,
             showCreateNewUserModal: false,
         }
     },
@@ -62,19 +64,14 @@ export default {
 
         if(userPos.latitude && userPos.longitude) {
             mapController.setUserPoint(userPos.latitude, userPos.longitude)
+            this.latitude = userPos.latitude
+            this.longitude = userPos.longitude
         }
 
-        //Я предупреждал
-        let thisObj = this;
-        ymap.events.add('click', function (e) {
-            if(thisObj.place_of_incident !== null)
-                ymap.geoObjects.remove(thisObj.place_of_incident);
-            let coords = e.get('coords');
-            thisObj.place_of_incident = new ymaps.Placemark(coords, null, {
-                preset: 'islands#blueDotIcon'
-            });
-            ymap.geoObjects.add(thisObj.place_of_incident);
-        });
+        ymap.events.add('click', () => {
+            this.latitude = mapController.currentBaloonCoords.latitude
+            this.longitude = mapController.currentBaloonCoords.longitude
+        })
     },
 }
 </script>

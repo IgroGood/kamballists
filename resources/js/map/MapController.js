@@ -7,6 +7,8 @@ colorMap.set("yellow", "yellow")
 export default class MapController {
     constructor(ymap) {
         this._ymap = ymap
+        this._currentBaloon = null
+        this.addMapEventListeners()
     }
 
     displayOrganizationPoint(organizationPoint) {
@@ -22,15 +24,45 @@ export default class MapController {
     }
 
     setUserPoint(latitide, longitude) {
+        this._currentBaloon = new ymaps.Placemark([latitide, longitude], {
+            balloonContentHeader: "Вы здесь",
+            balloonContentBody: "На страже безопасности безналичных платежей!"
+        }, {
+            preset: 'islands#dotIcon',
+            // iconLayout : 'iconShadowLayout',
+            iconColor: "red"
+        })
+
         this._ymap.geoObjects
-            .add(new ymaps.Placemark([latitide, longitude], {
-                balloonContentHeader: "Вы здесь",
-                balloonContentBody: "На страже безопасности безналичных платежей!"
-            }, {
-                preset: 'islands#dotIcon',
-                // iconLayout : 'iconShadowLayout',
-                iconColor: "red"
-            }))
+            .add(this._currentBaloon)
+
+        this.currentBaloonCoords = {
+            latitude: latitide,
+            longitude: longitude
+        }
+    }
+
+    setPointByClick(e) {
+        if (this._currentBaloon) {
+            this._ymap.geoObjects.remove(this._currentBaloon)
+        }
+
+        const coords = e.get('coords');
+        this._currentBaloon = new ymaps.Placemark(coords, null, {
+            preset: 'islands#blueDotIcon'
+        });
+
+        this._ymap.geoObjects
+            .add(this._currentBaloon);
+
+        this.currentBaloonCoords = {
+            latitude: coords[0],
+            longitude: coords[1]
+        }
+    }
+
+    addMapEventListeners() {
+        this._ymap.events.add('click', this.setPointByClick.bind(this))
     }
 
 } 

@@ -30,10 +30,4 @@ class AppController extends \Inertia\Controller {
             'title' => 'Профиль',
         ]);
     }
-
-    public function newRequest(): Response {
-        return Inertia::render('NewRequest', [
-            'title' => 'Новая Заявка',
-        ]);
-    }
 }

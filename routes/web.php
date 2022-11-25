@@ -16,7 +16,6 @@ Route::middleware(['auth:sanctum', 'auth'])->prefix('app')->group(function (){
     Route::get('/avatar', [AppController::class, 'avatar'])->name('app.avatar');
     Route::get('/partners', [AppController::class, 'partners'])->name('app.partners');
     Route::get('/profile', [AppController::class, 'profile'])->name('app.profile');
-    Route::get('/new-request', [AppController::class, 'NewRequest'])->name('app.newRequest');
     Route::get('/logout', function() {
         session()->flush();
         return redirect()->route('index');

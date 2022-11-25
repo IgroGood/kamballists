@@ -13,6 +13,10 @@ use Inertia\Response;
 class OrganisationController extends \Inertia\Controller {
     use ApiResponser;
 
+    public function api_organisations(): JsonResponse {
+        return $this->success(Organisation::all());
+    }
+
     public function organisations(): Response {
         return Inertia::render('Organizations', [
             'title' => 'Организации',

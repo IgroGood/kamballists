@@ -16,7 +16,6 @@
             <h2>Дополните заявку</h2>
             <textarea v-model="description" class="form-textarea"
                 placeholder="Например, если магазин находится в ТЦ, укажите его этаж и расположение">{{description}}</textarea>
-                {{latitude}} {{longitude}}
             <button class="kb-button" @click="sendMessage">Отправить</button>
         </div>
     </div>

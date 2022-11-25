@@ -83,9 +83,15 @@ export default {
         &__wrapper
             display: flex
             align-items: center
-            justify-content: space-between
+            justify-content: flex-start
             margin-top: 1rem
-            gap: 3rem
+            gap: 4rem
+        
+        &__avatar, &__coins
+            display: flex
+            flex-direction: column
+            align-items: center
+            gap: .2rem
 
     &-rating
 
@@ -118,6 +124,7 @@ export default {
             margin-left: 2rem
             margin-right: 2rem
             border-bottom: 1px solid #e2e8f0
+            position: relative
             h3
                 padding: 0
                 margin: 0
@@ -127,5 +134,9 @@ export default {
                 background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAANCAYAAACdKY9CAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAC3SURBVHgBjZK9DcIwEIXvAhItIzBCVmAS0wWqYCZwWgqOFChQkUxCNoANmAOKHLZFJCzZxq/wn96ne2cb4Cui65zolMMfZeOCs5cAnNzr+iKSABxmnR4fA3NL1KgQgL8bEwvwfdP1cmCupNyoKDDqQE2LiMIHeYEYFARsxOP5qaeFhpYa6s3ZNGjWFawZUcntuo9WsGYTx5jLooJQD84tecwOkGJ2ejAvjQw5I652ZdFBivYJf+kDvtNQBNE1JFkAAAAASUVORK5CYII=')
                 height: 12px
                 width: 12px
+                position: absolute
+                right: 0
+                top: 50%
+                margin-top: -6px
 
 </style>

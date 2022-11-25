@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAppealsTable extends Migration
+class CreateOrganisationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,10 @@ class CreateAppealsTable extends Migration
      */
     public function up()
     {
-        Schema::create('appeals', function (Blueprint $table) {
+        Schema::create('organisations', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id');
+            $table->string('organisation_name');
             $table->string('address');
-            $table->string('description');
-            $table->string('issues');
-            $table->rememberToken();
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ class CreateAppealsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('appeals');
+        Schema::dropIfExists('organisations');
     }
 }

@@ -150,7 +150,7 @@ function loadTexture() {
 
 
 function loadModel() {
-    OBJ_LOADER.load('../js/3d/Body.obj', (object) => {
+    OBJ_LOADER.load('../js/3d/FullBird.obj', (object) => {
         object.traverse(function(child) {
             if (child instanceof THREE.Mesh) {
                 child.castShadow = true;

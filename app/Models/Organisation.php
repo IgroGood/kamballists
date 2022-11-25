@@ -12,6 +12,9 @@ class Organisation extends Authenticatable
 {
     use HasFactory;
 
+    //мляяя забыл
+    protected $primaryKey = 'id';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -32,4 +35,13 @@ class Organisation extends Authenticatable
             'status',
             'id');
     }
+
+    public function reviews(){
+        return $this->belongsToMany('App\Models\Appeal',
+            'appeals_organisations',
+            'organisations_id',
+            'appeals_id');
+    }
+
+
 }

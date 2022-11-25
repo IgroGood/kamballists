@@ -35,6 +35,8 @@ Route::middleware(['auth:sanctum', 'auth'])->prefix('app')->group(function (){
     });
 
     Route::prefix('organisation')->group(function() {
+        Route::post('/{id}/reviews', [OrganisationController::class, 'reviews'])->name('organisation.reviews');
+        Route::get('/{id}/reviews', [OrganisationController::class, 'reviews'])->name('organisation.reviews');
         Route::get('/all', [OrganisationController::class, 'organisations'])->name('organisation.all');
         Route::get('/{id}', [OrganisationController::class, 'organisation'])->name('organisation');
         Route::post('/{id}/edit', [OrganisationController::class, 'edit'])

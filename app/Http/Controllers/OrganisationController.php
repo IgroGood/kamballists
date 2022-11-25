@@ -17,6 +17,11 @@ class OrganisationController extends \Inertia\Controller {
         return $this->success(Organisation::all());
     }
 
+    public function reviews($id): JsonResponse {
+        $reviews = Organisation::find($id)->reviews()->get();
+        return $this->success($reviews);
+    }
+
     public function organisations(): Response {
         return Inertia::render('Organizations', [
             'title' => 'Организации',
@@ -31,8 +36,13 @@ class OrganisationController extends \Inertia\Controller {
     public function organisation(int $id): Response {
         return Inertia::render('Organisation', [
             'title' => 'Организация',
-            'organisation' => Organisation::find($id)->first(),
+            'organisation' => Organisation::find($id),
         ]);
+    }
+
+    //фарш
+    public function api_organisation(int $id) {
+        return $this->success(Organisation::find($id));
     }
 
     public function create(Request $request): JsonResponse {

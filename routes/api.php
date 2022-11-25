@@ -22,4 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::prefix('organisations')->group(function() {
     Route::get('/all', [OrganisationController::class, 'api_organisations'])->name('api.organisation.all');
+    Route::get('/{id}', [OrganisationController::class, 'api_organisation'])->name('api.organisation');
 });

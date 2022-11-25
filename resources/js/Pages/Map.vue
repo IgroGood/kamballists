@@ -13,8 +13,10 @@
 
         <pop-up v-model="showOrgModal">
             <div>
+                <p>{{organization}}</p>
                 <h4>Отзывы</h4>
-                <p></p>
+
+                {{ reviews }}
             </div>
         </pop-up>
 
@@ -50,7 +52,14 @@ export default {
             longitude : 0,
             showCreateNewUserModal: false,
             showOrgModal: false,
+            organization: null,
+            reviews: null
         }
+    },
+
+    created() {
+        this.getOrgs().forEach(e => { console.log(e) })
+        console.log(this.getOrgs()[1])
     },
 
     // Лучше сюда не смотреть.
@@ -104,6 +113,22 @@ export default {
         openOrg(id){
             console.log(id)
             this.showOrgModal = true
+            
+            //TODO: -_-
+            this.organization = this.getOrgs()[id - 1]
+
+            axios.post(route('organisation.reviews', id)).then(r => {
+                this.reviews = r.data.data
+            });
+
+            // axios.post(route('organisation.reviews', id)).then(r => {
+            //     this.organization = r.data.data
+            // });
+
+        },
+
+        getOrgs(){
+            return this.$page.props.organisations
         },
 
         getStatusMark(issue_id){

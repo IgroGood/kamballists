@@ -142,7 +142,7 @@ function initWorld() {
 
 
 function loadTexture() {
-    IMAGE_LOADER.load('../js/3d/texture.jpg', (image) => {
+    IMAGE_LOADER.load('../js/3d/Body.jpg', (image) => {
         TEXTURE.image = image;
         TEXTURE.needsUpdate = true;
     });
@@ -150,7 +150,7 @@ function loadTexture() {
 
 
 function loadModel() {
-    OBJ_LOADER.load('../js/3d/OWL_001.obj', (object) => {
+    OBJ_LOADER.load('../js/3d/Body.obj', (object) => {
         object.traverse(function(child) {
             if (child instanceof THREE.Mesh) {
                 child.castShadow = true;

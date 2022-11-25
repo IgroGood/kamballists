@@ -24,4 +24,8 @@ Route::middleware(['auth:sanctum', 'auth'])->prefix('app')->group(function (){
         session()->flush();
         return redirect()->route('index');
     })->name('app.logout');
+
+    Route::get('/profile', [AppController::class, 'profile'])->name('app.profile');
+
+
 });

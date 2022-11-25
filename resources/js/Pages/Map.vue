@@ -37,10 +37,13 @@ export default {
     },
 
     data(){
+        this.place_of_incident = null
         return {
-            showCreateNewUserModal: false
+            showCreateNewUserModal: false,
         }
     },
+
+    // Лучше сюда не смотреть.
 
     async mounted() {
         await loadYmap(ymapsApiSettings);
@@ -60,6 +63,18 @@ export default {
         if(userPos.latitude && userPos.longitude) {
             mapController.setUserPoint(userPos.latitude, userPos.longitude)
         }
+
+        //Я предупреждал
+        let thisObj = this;
+        ymap.events.add('click', function (e) {
+            if(thisObj.place_of_incident !== null)
+                ymap.geoObjects.remove(thisObj.place_of_incident);
+            let coords = e.get('coords');
+            thisObj.place_of_incident = new ymaps.Placemark(coords, null, {
+                preset: 'islands#blueDotIcon'
+            });
+            ymap.geoObjects.add(thisObj.place_of_incident);
+        });
     },
 }
 </script>

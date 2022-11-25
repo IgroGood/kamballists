@@ -9,12 +9,12 @@
                 <div class="user-points__wrapper">
                     <div class="user-points__avatar">
                         <Avatar class="svg" />
-                        291
+                        {{ $page.props.user.owl_coins }}
                     </div>
 
                     <div class="user-points__coins">
                         <Coins class="svg" />
-                        293
+                        {{ $page.props.user.coins }}
                     </div>
                 </div>
             </div>

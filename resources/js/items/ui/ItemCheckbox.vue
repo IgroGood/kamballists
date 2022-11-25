@@ -1,11 +1,18 @@
 <template>
-    <input type="checkbox" id="checkbox" class="custom-checkbox" name="checkbox"/>
-    <label for="checkbox"><slot></slot></label><br>
+    <input type="checkbox" :id="uuid" class="custom-checkbox" name="checkbox"/>
+    <label :for="uuid"><span style="width: 100%"><slot></slot></span></label><br>
 </template>
 
 <script>
+let uuid = 0;
+
 export default {
-    name: "ItemCheckbox"
+    name: "ItemCheckbox",
+
+    beforeCreate() {
+        this.uuid = "ItemCheckbox" + uuid.toString();
+        uuid += 1;
+    },
 }
 </script>
 
@@ -27,14 +34,14 @@ export default {
     display: inline-block
     width: 13px
     height: 13px
-    border: 1px solid #1C5B93
+    border: 1px solid #006FFD
     border-radius: 2px
     margin-right: 5px
     background-repeat: no-repeat
     background-position: center center
     background-size: 50% 50%
 .custom-checkbox:checked+label::before
-    background-image: url(/images/check-mark.svg)
+    background: #006FFD
     background-position: 50% 50%
     background-size: cover
 </style>

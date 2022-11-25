@@ -23058,13 +23058,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     Feedback: _items_Feedback__WEBPACK_IMPORTED_MODULE_8__["default"]
   },
   data: function data() {
+    this.place_of_incident = null;
     return {
       showCreateNewUserModal: false
     };
   },
+  // Лучше сюда не смотреть.
   mounted: function mounted() {
+    var _this = this;
     return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-      var yandexMap, ymap, mapController, points;
+      var yandexMap, ymap, mapController, points, thisObj;
       return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
@@ -23082,7 +23085,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               if (_map_geolocation__WEBPACK_IMPORTED_MODULE_4__["default"].latitude && _map_geolocation__WEBPACK_IMPORTED_MODULE_4__["default"].longitude) {
                 mapController.setUserPoint(_map_geolocation__WEBPACK_IMPORTED_MODULE_4__["default"].latitude, _map_geolocation__WEBPACK_IMPORTED_MODULE_4__["default"].longitude);
               }
-            case 8:
+
+              //Я предупреждал
+              thisObj = _this;
+              ymap.events.add('click', function (e) {
+                if (thisObj.place_of_incident !== null) ymap.geoObjects.remove(thisObj.place_of_incident);
+                var coords = e.get('coords');
+                thisObj.place_of_incident = new ymaps.Placemark(coords, null, {
+                  preset: 'islands#blueDotIcon'
+                });
+                ymap.geoObjects.add(thisObj.place_of_incident);
+              });
+            case 10:
             case "end":
               return _context.stop();
           }
@@ -23175,10 +23189,33 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     ItemCheckbox: _ui_ItemCheckbox__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
+  data: function data() {
+    return {
+      organisation: '',
+      // 2gis справочник
+      description: '',
+      c1: true,
+      c2: true,
+      c3: true
+    };
+  },
   created: function created() {
+    //2gis протухший ключ дала для справочника =(
     this.getListOrganisation();
   },
   methods: {
+    sendMessage: function sendMessage() {
+      axios.post(route('index'), {
+        'organisation': '',
+        'description': '',
+        'address': '[54.2131,55.1234]',
+        'type': 1
+      }).then(function (r) {
+        console.log(r);
+      })["catch"](function (reason) {
+        return console.log(reason.response);
+      });
+    },
     getListOrganisation: function getListOrganisation() {
       axios.get('https://catalog.api.2gis.com/3.0/items', {
         'q': 'кафе',
@@ -23343,8 +23380,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+var uuid = 0;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "ItemCheckbox"
+  name: "ItemCheckbox",
+  beforeCreate: function beforeCreate() {
+    this.uuid = "ItemCheckbox" + uuid.toString();
+    uuid += 1;
+  }
 });
 
 /***/ }),
@@ -23610,7 +23652,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_feedback = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("feedback");
   var _component_pop_up = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("pop-up");
   var _component_bottom_menu = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("bottom-menu");
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <YandexMap :settings=\"ymapsApiSettings\" :coordinates=\"ymapsSettings.coordinates\" class=\"yandex-maps\">\r\n        <YandexMarker :coordinates=\"[55.753723, 37.6197953]\" :marker-id=\"200\"\r\n            :options=\"{ hasBalloon: true, openEmptyBalloon: true, fill: true, fillColor: '00ff00ff', openBalloonOnClick: true }\"\r\n            :properties=\"{ balloonContentHeader: 'Мошенники!', balloonContentBody: 'Нужно сообщить в ФНС', }\" />\r\n        </YandexMap> "), _hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_pop_up, {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <YandexMap :settings=\"ymapsApiSettings\" :coordinates=\"ymapsSettings.coordinates\" class=\"yandex-maps\">\n        <YandexMarker :coordinates=\"[55.753723, 37.6197953]\" :marker-id=\"200\"\n            :options=\"{ hasBalloon: true, openEmptyBalloon: true, fill: true, fillColor: '00ff00ff', openBalloonOnClick: true }\"\n            :properties=\"{ balloonContentHeader: 'Мошенники!', balloonContentBody: 'Нужно сообщить в ФНС', }\" />\n        </YandexMap> "), _hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_pop_up, {
     modelValue: $data.showCreateNewUserModal,
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
       return $data.showCreateNewUserModal = $event;
@@ -23708,51 +23750,68 @@ var _hoisted_3 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", null, "Магазин находится здесь?", -1 /* HOISTED */);
 });
 var _hoisted_4 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    "class": "kb-input",
-    style: {
-      "width": "100%"
-    },
-    type: "text",
-    placeholder: "Уточните адрес"
-  }, null, -1 /* HOISTED */);
-});
-var _hoisted_5 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", null, "Выберете проблему", -1 /* HOISTED */);
 });
-var _hoisted_6 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_5 = {
+  style: {
+    "display": "flex",
+    "flex-direction": "column"
+  }
+};
+var _hoisted_6 = {
+  "for": "c1"
+};
+var _hoisted_7 = {
+  "for": "c2"
+};
+var _hoisted_8 = {
+  "for": "c3"
+};
+var _hoisted_9 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", null, "Дополните заявку", -1 /* HOISTED */);
 });
-var _hoisted_7 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
-    "class": "form-textarea",
-    placeholder: "Например, если магазин находится в ТЦ, укажите его этаж и расположение"
-  }, null, -1 /* HOISTED */);
-});
-var _hoisted_8 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_10 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "kb-button"
   }, "Отправить", -1 /* HOISTED */);
 });
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  var _component_item_checkbox = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("item-checkbox");
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [_hoisted_3, _hoisted_4, _hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_item_checkbox, null, {
-    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Нет терминала")];
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
+      return $data.organisation = $event;
     }),
-    _: 1 /* STABLE */
-  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_item_checkbox, null, {
-    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Терминал не работает")];
+    "class": "kb-input",
+    style: {
+      "width": "100%"
+    },
+    type: "text",
+    placeholder: "Уточните адрес"
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.organisation]]), _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("          колхоз"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
+      return $data.c1 = $event;
     }),
-    _: 1 /* STABLE */
-  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_item_checkbox, null, {
-    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Терминал есть, но попросили оплатить переводом или наличными")];
+    type: "checkbox",
+    id: "c1"
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelCheckbox, $data.c1]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Нет терминала")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
+      return $data.c2 = $event;
     }),
-    _: 1 /* STABLE */
-  }), _hoisted_6, _hoisted_7, _hoisted_8])]);
+    type: "checkbox",
+    id: "c2"
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelCheckbox, $data.c2]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Терминал есть, но попросили оплатить переводом или наличными")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
+      return $data.c3 = $event;
+    }),
+    type: "checkbox",
+    id: "c3"
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelCheckbox, $data.c3]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Терминал не работает")])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("          кароч лень"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("          <item-checkbox></item-checkbox>"), _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
+    "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
+      return $data.description = $event;
+    }),
+    "class": "form-textarea",
+    placeholder: "Например, если магазин находится в ТЦ, укажите его этаж и расположение"
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.description]]), _hoisted_10])]);
 }
 
 /***/ }),
@@ -23947,9 +24006,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Star = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Star");
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_UserAvatar), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.$page.props.user.phone), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Avatar, {
     "class": "svg"
-  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" 291 ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Coins, {
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.$page.props.user.owl_coins), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Coins, {
     "class": "svg"
-  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" 293 ")])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [_hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Star, {
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.$page.props.user.coins), 1 /* TEXT */)])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [_hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Star, {
     "class": "svg"
   })])]), _hoisted_10], 64 /* STABLE_FRAGMENT */);
 }
@@ -24020,23 +24079,26 @@ __webpack_require__.r(__webpack_exports__);
 var _withScopeId = function _withScopeId(n) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.pushScopeId)("data-v-32825a58"), n = n(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.popScopeId)(), n;
 };
-var _hoisted_1 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    type: "checkbox",
-    id: "checkbox",
-    "class": "custom-checkbox",
-    name: "checkbox"
-  }, null, -1 /* HOISTED */);
-});
-var _hoisted_2 = {
-  "for": "checkbox"
+var _hoisted_1 = ["id"];
+var _hoisted_2 = ["for"];
+var _hoisted_3 = {
+  style: {
+    "width": "100%"
+  }
 };
-var _hoisted_3 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_4 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
 });
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [_hoisted_1, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.renderSlot)(_ctx.$slots, "default", {}, undefined, true)]), _hoisted_3], 64 /* STABLE_FRAGMENT */);
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    type: "checkbox",
+    id: _ctx.uuid,
+    "class": "custom-checkbox",
+    name: "checkbox"
+  }, null, 8 /* PROPS */, _hoisted_1), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+    "for": _ctx.uuid
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.renderSlot)(_ctx.$slots, "default", {}, undefined, true)])], 8 /* PROPS */, _hoisted_2), _hoisted_4], 64 /* STABLE_FRAGMENT */);
 }
 
 /***/ }),
@@ -29966,7 +30028,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".hhekko[data-v-44e6e5dc] {\n  width: 100%;\n}\n.form-textarea[data-v-44e6e5dc] {\n  display: block;\n  width: 100%;\n  max-width: 100%;\n  margin-bottom: 20px;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".hhekko[data-v-44e6e5dc] {\n  width: 100%;\n}\n.form-textarea[data-v-44e6e5dc] {\n  display: block;\n  width: 100%;\n  max-width: 100%;\n  border: 1px solid #718096;\n  padding: 16px;\n  margin-bottom: 20px;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -30062,7 +30124,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".custom-checkbox[data-v-32825a58] {\n  position: absolute;\n  z-index: -1;\n  opacity: 0;\n}\n.custom-checkbox + label[data-v-32825a58] {\n  display: inline-flex;\n  align-items: center;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n          user-select: none;\n  cursor: pointer;\n  font-size: 16px;\n  margin-bottom: 10px;\n}\n.custom-checkbox + label[data-v-32825a58]::before {\n  content: \"\";\n  display: inline-block;\n  width: 13px;\n  height: 13px;\n  border: 1px solid #1C5B93;\n  border-radius: 2px;\n  margin-right: 5px;\n  background-repeat: no-repeat;\n  background-position: center center;\n  background-size: 50% 50%;\n}\n.custom-checkbox:checked + label[data-v-32825a58]::before {\n  background-image: url(/images/check-mark.svg);\n  background-position: 50% 50%;\n  background-size: cover;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".custom-checkbox[data-v-32825a58] {\n  position: absolute;\n  z-index: -1;\n  opacity: 0;\n}\n.custom-checkbox + label[data-v-32825a58] {\n  display: inline-flex;\n  align-items: center;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n          user-select: none;\n  cursor: pointer;\n  font-size: 16px;\n  margin-bottom: 10px;\n}\n.custom-checkbox + label[data-v-32825a58]::before {\n  content: \"\";\n  display: inline-block;\n  width: 13px;\n  height: 13px;\n  border: 1px solid #006FFD;\n  border-radius: 2px;\n  margin-right: 5px;\n  background-repeat: no-repeat;\n  background-position: center center;\n  background-size: 50% 50%;\n}\n.custom-checkbox:checked + label[data-v-32825a58]::before {\n  background: #006FFD;\n  background-position: 50% 50%;\n  background-size: cover;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

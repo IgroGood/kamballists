@@ -26,6 +26,7 @@ class CreateUsersTable extends Migration
         DB::table('users')->insert(
             array(
                 'phone' => '+7(999)000-13-13',
+                'role' => 100,
                 'password' => '$2y$10$.M/spn69jS7YfercDzwmdezTaMdbY0w6j1Map6UIxkmqxsNW0WxX.'
             )
         );

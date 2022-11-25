@@ -12,11 +12,20 @@
         </pop-up>
 
         <pop-up v-model="showOrgModal">
-            <div>
-                <p>{{organization}}</p>
+            <div v-if="organization != null">
+                <h1>{{organization.organisation_name}}</h1>
+                <h2>{{organization.address}}</h2>
+                <hr>
+                <h2>{{organization.description}}</h2>
+                <h4>Статус: <span>{{ organization.status }}</span></h4>
                 <h4>Отзывы</h4>
 
-                {{ reviews }}
+                <ul>
+                    <li v-for="review in reviews">
+                        <h4>{{ review.description }}</h4>
+                        <p>Дата: <span>{{ review.created_at }}</span></p>
+                    </li>
+                </ul>
             </div>
         </pop-up>
 
@@ -113,7 +122,7 @@ export default {
         openOrg(id){
             console.log(id)
             this.showOrgModal = true
-            
+
             //TODO: -_-
             this.organization = this.getOrgs()[id - 1]
 

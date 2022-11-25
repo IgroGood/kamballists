@@ -17,17 +17,17 @@ export default {
 
     data(){
         return {
-            organisation_name: this.$page.props.organisation_name,
-            address: this.$page.props.address,
-            description: this.$page.props.description,
-            latitude: this.$page.props.latitude,
-            longitude: this.$page.props.longitude,
+            organisation_name: this.$page.props.organisation.organisation_name,
+            address: this.$page.props.organisation.address,
+            description: this.$page.props.organisation.description,
+            latitude: this.$page.props.organisation.latitude,
+            longitude: this.$page.props.organisation.longitude,
         }
     },
 
     methods: {
         edit(){
-            axios.post(route('organisation.edit'), {
+            axios.post(route('organisation.edit', this.$page.props.organisation.id), {
                 'organisation_name': this.organisation_name,
                 'address': this.address,
                 'description': this.description,

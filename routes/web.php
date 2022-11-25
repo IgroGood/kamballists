@@ -6,6 +6,9 @@ use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
 
+Route::get('/js', null)->name('js');
+
+
 Route::middleware(['guest'])->group(function (){
     Route::get('/', [LoginController::class, 'login'])->name('login');
     Route::post('/', [AuthController::class, 'login'])->name('login');

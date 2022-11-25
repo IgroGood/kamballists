@@ -10,5 +10,13 @@
 <body>
     @routes
     @inertia
+
+
+{{--    Костыль уровень -_---}}
+    <script src='https://unpkg.com/three@0.99.0/build/three.min.js'></script>
+    <script src='https://unpkg.com/three@0.99.0/examples/js/loaders/OBJLoader.js'></script>
+    <script src='https://unpkg.com/three@0.99.0/examples/js/controls/OrbitControls.js'></script>
+    <script src='https://unpkg.com/three@0.99.0/examples/js/renderers/CSS3DRenderer.js'></script>
+    <script src='https://unpkg.com/animejs@2.2.0/anime.min.js'></script>
 </body>
 </html>

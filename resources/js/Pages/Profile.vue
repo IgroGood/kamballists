@@ -1,48 +1,43 @@
 <template>
-    <h1>Profile</h1>
-    <ProfileTabs @tab="(type) => handleChange(type)" />
-    <ProfilePlacedPage v-if="tabType === 'placed'" />
-    <ProfileProcessPage v-if="tabType === 'process'" />
-    <ProfileSucceedPage v-if="tabType === 'succeed'" />
-    <bottom-menu />
+    <h1>Профиль</h1>
+    <Requests v-if="currentPage === 'requests'"/>
+    <UserProfile v-if="currentPage === 'profile'"/>
+    <BottomMenu />
 </template>
 
 <script>
+import Requests from "../items/Requests.vue";
 import BottomMenu from "../items/ui/BottomMenu";
-import ProfileTabs from "../items/ProfileTabs.vue";
-import ProfilePlacedPage from "../items/ProfilePlaced.vue";
-import ProfileProcessPage from "../items/ProfileProcess.vue";
-import ProfileSucceedPage from "../items/ProfileSucceed.vue";
+import UserProfile from "../items/UserProfile.vue";
 
 export default {
     name: "Profile",
 
     components: {
+        Requests,
         BottomMenu,
-        ProfileTabs,
-        ProfilePlacedPage,
-        ProfileProcessPage,
-        ProfileSucceedPage
+        UserProfile
     },
 
     data() {
         return {
-            tabType : "placed"
+            currentPage : "profile"
         }
     },
 
     mounted() {
-        
+        /// Осторожно, колхоз!
+        document.querySelector(".my-requests").addEventListener("click", (e) => {
+            this.currentPage = 'requests'
+        })
     },
 
-    methods : {
-        handleChange(e) {
-            this.tabType = e
-        }
+    methods: {
+
     }
 }
 </script>
 
-<style scoped>
+<style lang="sass" scoped>
 
 </style>

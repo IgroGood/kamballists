@@ -18,6 +18,7 @@ import MapController from '../map/MapController'
 import userPos from "../map/geolocation"
 import { loadYmap } from 'vue-yandex-maps'
 import BottomMenu from "../items/ui/BottomMenu";
+
 export default {
     components: {
         BottomMenu

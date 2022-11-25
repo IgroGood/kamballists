@@ -27,8 +27,7 @@ class Appeal extends Authenticatable
     ];
 
     public function user(){
-        return $this->belongsToMany('App\Models\User',
-            'users',
+        return $this->belongsTo('App\Models\User',
             'user_id',
             'id');
     }

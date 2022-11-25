@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Organisation;
-use Auth;
+use App\Models\User;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -31,6 +31,7 @@ class AppController extends \Inertia\Controller {
         return Inertia::render('Profile', [
             'title' => 'Профиль',
             'user' => auth()->user(),
+            'appeals' => auth()->user()->appeals(),
         ]);
     }
 }

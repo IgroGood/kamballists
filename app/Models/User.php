@@ -30,7 +30,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'id',
+//        'id',
         'password',
         'phone_verified_at',
         'remember_token',
@@ -46,4 +46,8 @@ class User extends Authenticatable
     protected $casts = [
         'phone_verified_at' => 'datetime',
     ];
+
+    public function appeals(){
+        return $this->hasMany(Appeal::class, 'user_id', 'id')->get();
+    }
 }

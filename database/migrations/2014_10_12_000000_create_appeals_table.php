@@ -17,8 +17,10 @@ class CreateAppealsTable extends Migration
             $table->id();
             $table->bigInteger('user_id');
             $table->string('address');
+            $table->float('latitude');
+            $table->float('longitude');
             $table->string('description');
-            $table->string('issues');
+            $table->bigInteger('issues_id');
             $table->rememberToken();
             $table->timestamps();
         });

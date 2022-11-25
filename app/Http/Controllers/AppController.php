@@ -32,12 +32,4 @@ class AppController extends \Inertia\Controller {
             'user' => auth()->user(),
         ]);
     }
-
-
-    //выкинутЬ!
-    public function organisations(): Response {
-        return Inertia::render('Organizations', [
-            'title' => 'Организации',
-        ]);
-    }
 }

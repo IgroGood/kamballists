@@ -49,11 +49,12 @@ export default {
 
     methods: {
         sendMessage() {
-            axios.post(route('index'), {
-                'organisation': '',
+            axios.post(route('appeal.create'), {
+                'address': this.organisation,
+                'latitude': this.latitude,
+                'longitude': this.longitude,
                 'description': this.description,
-                'address': `[${this.latitude},${this.longitude}]`,
-                'type': this.type
+                'issues_id': this.type,
             }).then(r => {
                 console.log(r)
             }).catch(reason => console.log(reason.response));
@@ -101,7 +102,7 @@ export default {
     max-width: 550px
     &.active
       background-color: #006FFD
-      color: #fff  
+      color: #fff
     &__wrapper
         display: flex
         flex-wrap: wrap

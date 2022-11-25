@@ -24,6 +24,10 @@ class OrganisationController extends \Inertia\Controller {
         ]);
     }
 
+    public function edit(int $id): JsonResponse {
+        return $this->success('Отредактирована');
+    }
+
     public function organisation(int $id): Response {
         return Inertia::render('Organisation', [
             'title' => 'Организация',

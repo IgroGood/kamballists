@@ -10,8 +10,9 @@ Route::get('/js', null)->name('js');
 
 
 Route::middleware(['guest'])->group(function (){
-    Route::get('/', [LoginController::class, 'login'])->name('login');
-    Route::post('/', [AuthController::class, 'login'])->name('login');
+    Route::get('/', [LoginController::class, 'login'])->name('index');
+    Route::post('/login', [AuthController::class, 'login'])->name('login');
+    Route::post('/registration', [AuthController::class, 'registration'])->name('registration');
 });
 
 Route::middleware(['auth:sanctum', 'auth'])->prefix('app')->group(function (){
@@ -23,4 +24,8 @@ Route::middleware(['auth:sanctum', 'auth'])->prefix('app')->group(function (){
         session()->flush();
         return redirect()->route('index');
     })->name('app.logout');
+
+    Route::get('/profile', [AppController::class, 'profile'])->name('app.profile');
+
+
 });

@@ -1,5 +1,5 @@
 <template>
-    <h1>Partners</h1>
+    <h1>Партнёры</h1>
     <bottom-menu/>
 </template>
 

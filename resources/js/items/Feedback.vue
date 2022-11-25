@@ -16,7 +16,8 @@
             <h2>Дополните заявку</h2>
             <textarea v-model="description" class="form-textarea"
                 placeholder="Например, если магазин находится в ТЦ, укажите его этаж и расположение">{{description}}</textarea>
-            <button class="kb-button">Отправить</button>
+                {{latitude}} {{longitude}}
+            <button class="kb-button" @click="sendMessage">Отправить</button>
         </div>
     </div>
 </template>
@@ -37,7 +38,7 @@ export default {
         return {
             organisation: '', // 2gis справочник
             description: '',
-            type: 1
+            type: 1,
         }
     },
 
@@ -50,8 +51,8 @@ export default {
         sendMessage() {
             axios.post(route('index'), {
                 'organisation': '',
-                'description': '',
-                'address': '[54.2131,55.1234]',
+                'description': this.description,
+                'address': `[${this.latitude},${this.longitude}]`,
                 'type': this.type
             }).then(r => {
                 console.log(r)

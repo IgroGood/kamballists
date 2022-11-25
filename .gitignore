@@ -41,6 +41,6 @@ yarn-error.log
 #my
 composer.lock
 package-lock.json
-public/js
+#public/js
 public/css
 webpack.mix.js

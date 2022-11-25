@@ -6,6 +6,15 @@
             :properties="{ balloonContentHeader: 'Мошенники!', balloonContentBody: 'Нужно сообщить в ФНС', }" />
         </YandexMap> -->
         <div id="map" class="yandex-maps"></div>
+
+        <pop-up v-model="showCreateNewUserModal">
+            <feedback></feedback>
+        </pop-up>
+
+        <button class="kb-button button" @click="showCreateNewUserModal = true">
+            Сообщить
+        </button>
+
         <bottom-menu/>
     </div>
 </template>
@@ -18,9 +27,19 @@ import MapController from '../map/MapController'
 import userPos from "../map/geolocation"
 import { loadYmap } from 'vue-yandex-maps'
 import BottomMenu from "../items/ui/BottomMenu";
+import PopUp from "../items/ui/PopUp";
+import Feedback from "../items/Feedback";
 export default {
     components: {
-        BottomMenu
+        BottomMenu,
+        PopUp,
+        Feedback
+    },
+
+    data(){
+        return {
+            showCreateNewUserModal: false
+        }
     },
 
     async mounted() {
@@ -37,7 +56,7 @@ export default {
         ]
 
         points.map(point => mapController.displayOrganizationPoint(point))
-    
+
         if(userPos.latitude && userPos.longitude) {
             mapController.setUserPoint(userPos.latitude, userPos.longitude)
         }
@@ -54,4 +73,10 @@ export default {
     background-color: red
 .yandex-maps
     width: 100%
+.button
+    width: 250px
+    position: fixed
+    left: 50%
+    bottom: 100px
+    transform: translate(-50%, 0)
 </style>

@@ -4,7 +4,7 @@
             <UserAvatar />
             <div class="user-data">
                 <div class="user-name">
-                    Owl8754
+                    {{ $page.props.user.phone }}
                 </div>
                 <div class="user-points__wrapper">
                     <div class="user-points__avatar">
@@ -97,14 +97,14 @@ export default {
             justify-content: space-between
             width: 100%
 
-        
+
         &__outer
             display: block
             width: 100%
             border-radius: 15px
             background-color: #e2e8f0
             height: 12px
-        
+
         &__inner
             display: block
             width: 37%

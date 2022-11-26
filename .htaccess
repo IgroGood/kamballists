@@ -1,0 +1,9 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+    RewriteCond %{HTTPS} !=off
+    RewriteRule ^/?(.*) http://%{SERVER_NAME}/$1 [R,L]
+    RewriteRule ^(.*)$ public/$1 [L]
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+</IfModule>

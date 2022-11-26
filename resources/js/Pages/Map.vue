@@ -8,11 +8,11 @@
         <div id="map" class="yandex-maps"></div>
 
         <pop-up v-model="showCreateNewUserModal">
-            <feedback :latitude="latitude" :longitude="longitude"></feedback>
+            <feedback :latitude="latitude" :longitude="longitude" :address="address"></feedback>
         </pop-up>
 
         <pop-up v-model="showOrgModal">
-            <div v-if="organization != null">
+            <!-- <div v-if="organization != null">
                 <h1>{{organization.organisation_name}}</h1>
                 <h2>{{organization.address}}</h2>
                 <hr>
@@ -26,7 +26,8 @@
                         <p>Дата: <span>{{ review.created_at }}</span></p>
                     </li>
                 </ul>
-            </div>
+            </div> -->
+            <OrganizationPopUp :organization="organization" />
         </pop-up>
 
         <button class="kb-button button" @click="showCreateNewUserModal = true">
@@ -47,12 +48,16 @@ import {loadYmap} from 'vue-yandex-maps'
 import BottomMenu from "../items/ui/BottomMenu";
 import PopUp from "../items/ui/PopUp";
 import Feedback from "../items/Feedback";
+import OrganizationPopUp from '../items/ui/OrganizationPopUp.vue';
+
+
 
 export default {
     components: {
         BottomMenu,
         PopUp,
-        Feedback
+        Feedback,
+        OrganizationPopUp
     },
 
     data(){
@@ -62,7 +67,8 @@ export default {
             showCreateNewUserModal: false,
             showOrgModal: false,
             organization: null,
-            reviews: null
+            reviews: null,
+            address : null
         }
     },
 
@@ -112,15 +118,19 @@ export default {
             this.longitude = userPos.longitude
         }
 
-        ymap.events.add('click', () => {
+        ymap.events.add('click', (e) => {
             this.latitude = mapController.currentBaloonCoords.latitude
             this.longitude = mapController.currentBaloonCoords.longitude
+            mapController.getGeocodedAddress(e.get('coords'))
+                .then(res => {
+                    this.address = mapController.minimizeAdress(res)
+                })
         });
     },
 
     methods: {
         openOrg(id){
-            console.log(id)
+            // console.log(id)
             this.showOrgModal = true
 
             //TODO: -_-

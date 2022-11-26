@@ -125,6 +125,7 @@ export default {
             margin-right: 2rem
             border-bottom: 1px solid #e2e8f0
             position: relative
+            cursor: pointer
             h3
                 padding: 0
                 margin: 0

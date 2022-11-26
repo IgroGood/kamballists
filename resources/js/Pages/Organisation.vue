@@ -1,6 +1,8 @@
 <template>
     <div class="container">
-        <h1>Организация: <span>{{ $page.props.organisation.organisation_name }}</span></h1>
+        <h1>Организация:</h1>
+        
+        <h2>{{ $page.props.organisation.organisation_name }}</h2>
         {{ $page.props.organisation }}
         <div class="form">
             <input class="kb-input" type="text" name="organisation_name" v-model="organisation_name">
@@ -12,6 +14,7 @@
 </template>
 
 <script>
+
 export default {
     name: "Organisation",
 

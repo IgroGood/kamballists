@@ -1,8 +1,10 @@
 <template>
     <ProfileTabs @tab="(type) => handleChange(type)" />
-    <ProfilePlacedPage v-if="tabType === 'placed'" />
-    <ProfileProcessPage v-if="tabType === 'process'" />
-    <ProfileSucceedPage v-if="tabType === 'succeed'" />
+    <div class="wrapper">
+        <ProfilePlacedPage v-if="tabType === 'placed'" :appeals="getProcessedAppeals()" />
+        <ProfileProcessPage v-if="tabType === 'process'" />
+        <ProfileSucceedPage v-if="tabType === 'succeed'" :appeals="getApprovedAppeals()" />
+    </div>
     <bottom-menu />
 </template>
 
@@ -26,22 +28,34 @@ export default {
 
     data() {
         return {
-            tabType : "placed"
+            tabType: "placed",
+            appeals : this.$page.props.appeals
         }
     },
 
     mounted() {
-        
+       
     },
 
-    methods : {
+    methods: {
         handleChange(e) {
             this.tabType = e
+        },
+
+        getApprovedAppeals() {
+            return this.appeals.filter(item => item.status == 1)
+        },
+
+        getProcessedAppeals() {
+            return this.appeals.filter(item => item.status == 0)
         }
     }
 }
 </script>
 
-<style scoped>
+<style lang="sass" scoped>
+.wrapper
+    padding-left: 0.7rem
+    padding-right: 0.7rem
 
 </style>

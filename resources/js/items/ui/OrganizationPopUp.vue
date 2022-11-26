@@ -34,7 +34,8 @@ export default {
     },
 
     props: {
-        organization: Object
+        organization: Object,
+        reviews: []
     }
 }
 </script>

@@ -12,22 +12,22 @@
         </pop-up>
 
         <pop-up v-model="showOrgModal">
-            <!-- <div v-if="organization != null">
-                <h1>{{organization.organisation_name}}</h1>
-                <h2>{{organization.address}}</h2>
-                <hr>
-                <h2>{{organization.description}}</h2>
-                <h4>Статус: <span>{{ organization.status }}</span></h4>
-                <h4>Отзывы</h4>
+<!--            <div v-if="organization != null">-->
+<!--                <h1>{{organization.organisation_name}}</h1>-->
+<!--                <h2>{{organization.address}}</h2>-->
+<!--                <hr>-->
+<!--                <h2>{{organization.description}}</h2>-->
+<!--                <h4>Статус: <span>{{ organization.status }}</span></h4>-->
+<!--                <h4>Отзывы</h4>-->
 
-                <ul>
-                    <li v-for="review in reviews">
-                        <h4>{{ review.description }}</h4>
-                        <p>Дата: <span>{{ review.created_at }}</span></p>
-                    </li>
-                </ul>
-            </div> -->
-            <OrganizationPopUp :organization="organization" />
+<!--                <ul>-->
+<!--                    <li v-for="review in reviews">-->
+<!--                        <h4>{{ review.description }}</h4>-->
+<!--                        <p>Дата: <span>{{ review.created_at }}</span></p>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </div>-->
+            <OrganizationPopUp :organization="organization" :reviews="reviews"/>
         </pop-up>
 
         <button class="kb-button button" @click="showCreateNewUserModal = true">

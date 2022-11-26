@@ -2,7 +2,7 @@
     <div style="padding: 1em;">
         <div class="form">
             <h1>Магазин находится здесь?</h1>
-            <input v-model="organisation" class="kb-input" style="width: 100%" type="text" placeholder="Уточните адрес" :value="address">
+            <input :value="address" class="kb-input" style="width: 100%" type="text" placeholder="Уточните адрес">
 
             <h2>Выберете проблему</h2>
             <!-- не колхоз-->

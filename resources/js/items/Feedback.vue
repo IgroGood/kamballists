@@ -2,7 +2,7 @@
     <div style="padding: 1em;">
         <div class="form">
             <h1>Магазин находится здесь?</h1>
-            <input v-model="organisation" class="kb-input" style="width: 100%" type="text" placeholder="Уточните адрес">
+            <input v-model="organisation" class="kb-input" style="width: 100%" type="text" placeholder="Уточните адрес" :value="address">
 
             <h2>Выберете проблему</h2>
             <!-- не колхоз-->
@@ -27,7 +27,8 @@ export default {
     name: "Feedback",
     props: {
         latitude: Number,
-        longitude: Number
+        longitude: Number,
+        address: String
     },
     components: {
         ItemCheckbox,
@@ -49,13 +50,14 @@ export default {
     methods: {
         sendMessage() {
             axios.post(route('appeal.create'), {
-                'address': this.organisation,
+                'address': this.address,
                 'latitude': this.latitude,
                 'longitude': this.longitude,
                 'description': this.description,
                 'issues_id': this.type,
             }).then(r => {
-                console.log(r)
+                alert("Ваша заявка была отправлена")
+                this.description = ''
             }).catch(reason => console.log(reason.response));
         },
 

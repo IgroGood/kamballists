@@ -9,6 +9,7 @@ export default class MapController {
         this._ymap = ymap
         this._currentBaloon = null
         this.addMapEventListeners()
+        this._address = null
     }
 
     displayOrganizationPoint(organizationPoint) {
@@ -55,14 +56,29 @@ export default class MapController {
         this._ymap.geoObjects
             .add(this._currentBaloon);
 
+        
         this.currentBaloonCoords = {
             latitude: coords[0],
             longitude: coords[1]
         }
+
+        this.getGeocodedAddress(coords).then((res) => {
+            // console.log(coords)
+            this.address = this.minimizeAdress(res)
+        })
     }
+
+    minimizeAdress(address) {
+        const replacingPattern = /Россия,\s?|\s?Республика Саха \(Якутия\),\s?|\s?Якутск,\s?/gi
+        return address.replace(replacingPattern, '')
+    }
+
 
     addMapEventListeners() {
         this._ymap.events.add('click', this.setPointByClick.bind(this))
     }
 
+    async getGeocodedAddress(coords) {
+		return await ymaps.geocode(coords).then(res => res.geoObjects.get(0).getAddressLine())
+	}
 } 
